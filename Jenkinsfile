@@ -1,10 +1,9 @@
 pipeline {
-    agent { node 'jenkins-node' }
+    agent any
 
     stages {
         stage('Copy Playbook') {
             steps {
-                // Copy playbook from Jenkins server to node
                 sh '''
                 scp -i /var/lib/jenkins/.ssh/id_rsa_jenkins \
                 /var/lib/jenkins/src/legion-ci-test/playbook-nginx.yml \
@@ -15,14 +14,11 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Executing Build Stage on jenkins-node...'
-                sh 'ansible-playbook -i /var/lib/jenkins/src/legion-ci-test/inventory/hosts /tmp/playbook-nginx.yml -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'ansible-playbook -i /var/lib/jenkins/src/legion-ci-test/inventory/hosts /tmp/playbook-nginx.yml --tags save -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins'
+                sh '''
+                ansible-playbook -i /tmp/inventory/hosts \
+                /tmp/playbook-nginx.yml \
+                -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins
+                '''
             }
         }
     }
