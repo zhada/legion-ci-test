@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Executing Build Stage on jenkins-node...'
-                sh 'ansible-playbook -i /var/lib/jenkins/src/legion-ci-test/hosts /var/lib/jenkins/src/legion-ci-test/playbook-nginx.yml -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins'
+                sh 'ansible-playbook -i /var/lib/jenkins/src/legion-ci-test/hosts /root/playbook-nginx.yml -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins'
             }
         }
         stage('Test') {
