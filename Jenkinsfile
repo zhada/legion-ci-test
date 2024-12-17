@@ -11,7 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Executing Test Stage on jenkins-node...'
-                sh 'ansible-playbook -i /root/playbook-nginx.yml --tags save -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins'
+                sh 'ansible-playbook -i /var/lib/jenkins/src/legion-ci-test/hosts /root/playbook-nginx.yml --tags save -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins'
             }
         }
     }
