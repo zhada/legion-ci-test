@@ -20,7 +20,7 @@ pipeline {
                 script {
                     echo 'Executing Build Stage on remote server...'
                     sh '''
-                    ansible-playbook -i /tmp/inventory/hosts \
+                    ansible-playbook -i ~/src/legion-ci-test/hosts \
                     /root/playbook-nginx.yml \
                     -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins
                     '''
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     echo 'Executing Test Stage on remote server...'
                     sh '''
-                    ansible-playbook -i /tmp/inventory/hosts \
+                    ansible-playbook -i ~/src/legion-ci-test/hosts \
                     /root/playbook-nginx.yml --tags save \
                     -u root --private-key /var/lib/jenkins/.ssh/id_rsa_jenkins
                     '''
